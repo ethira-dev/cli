@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethira.dev/schemas/cli/v1/routing.json",
+  "title": "ethira routing --json",
+  "type": "object",
+  "required": ["schemaVersion", "localOnly", "repositories", "mcpServers"],
+  "additionalProperties": true,
+  "properties": {
+    "schemaVersion": { "const": "1" },
+    "localOnly": { "const": true },
+    "note": { "type": "string" },
+    "repositoryRoutingFields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "description"],
+        "properties": {
+          "path": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "mcpServerRoutingFields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "description"],
+        "properties": {
+          "path": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "repositories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {},
+          "business_id": {},
+          "name": {},
+          "system_id": {},
+          "team_id": {},
+          "owner_user_id": {},
+          "url": {},
+          "default_branch": {},
+          "provider": {},
+          "full_name": {},
+          "external_id": {}
+        },
+        "additionalProperties": true
+      }
+    },
+    "mcpServers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {},
+          "business_id": {},
+          "name": {},
+          "team_id": {},
+          "owner_user_id": {},
+          "url": {},
+          "transport": {},
+          "command": {}
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}

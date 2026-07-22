@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethira.dev/schemas/cli/v1/error.json",
+  "title": "ethira --json error (stderr)",
+  "description": "Emitted on stderr when a command fails and --json is present.",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": ["error", "message", "hint"],
+      "additionalProperties": true,
+      "properties": {
+        "error": {
+          "type": "string",
+          "enum": ["not_logged_in", "session_expired", "session_rejected"]
+        },
+        "message": { "type": "string" },
+        "detail": { "type": "string" },
+        "hint": { "type": "string" }
+      }
+    },
+    {
+      "type": "object",
+      "required": ["error", "message", "exitCode"],
+      "additionalProperties": true,
+      "properties": {
+        "error": {
+          "type": "string",
+          "enum": ["cache_missing", "sql_error", "unauthorized", "error"]
+        },
+        "message": { "type": "string" },
+        "exitCode": { "type": "integer", "minimum": 1, "maximum": 4 }
+      }
+    }
+  ]
+}

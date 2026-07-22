@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethira.dev/schemas/cli/v1/tables.json",
+  "title": "ethira tables --json",
+  "type": "object",
+  "required": ["schemaVersion", "localOnly", "tables"],
+  "additionalProperties": true,
+  "properties": {
+    "schemaVersion": { "const": "1" },
+    "localOnly": { "const": true },
+    "tables": {
+      "type": "object",
+      "additionalProperties": { "type": "integer" }
+    }
+  }
+}

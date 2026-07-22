@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethira.dev/schemas/cli/v1/sync.json",
+  "title": "ethira sync --json",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": ["schemaVersion", "workspace", "counts", "relationships", "cache"],
+      "additionalProperties": true,
+      "properties": {
+        "schemaVersion": { "const": "1" },
+        "workspace": {
+          "type": "object",
+          "required": ["id", "name"],
+          "properties": {
+            "id": { "type": "string" },
+            "name": { "type": "string" }
+          }
+        },
+        "lastSyncedAt": { "type": "string" },
+        "counts": {
+          "type": "object",
+          "additionalProperties": { "type": "integer" }
+        },
+        "relationships": { "type": "integer" },
+        "warnings": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "cache": { "type": "string" },
+        "localOnlyAfterSync": { "type": "boolean" }
+      }
+    },
+    {
+      "type": "object",
+      "required": ["schemaVersion", "cleared", "cache"],
+      "additionalProperties": true,
+      "properties": {
+        "schemaVersion": { "const": "1" },
+        "cleared": { "const": true },
+        "cache": { "type": "string" }
+      }
+    }
+  ]
+}

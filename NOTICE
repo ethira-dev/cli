@@ -1,0 +1,17 @@
+Ethira CLI
+Copyright 2026 Ethira AB
+
+This product is licensed under the Apache License, Version 2.0, OR the MIT
+License. See LICENSE-APACHE and LICENSE-MIT.
+
+This product includes software developed as part of the Ethira CLI and its
+Rust crate dependencies. The complete dependency list and versions are recorded
+in Cargo.lock.
+
+This product includes SQLite (via the rusqlite crate with the `bundled`
+feature). SQLite is in the public domain:
+
+  https://www.sqlite.org/copyright.html
+
+All rights reserved by their respective owners for third-party components.
+Review each dependency's license for attribution and distribution terms.

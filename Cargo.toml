@@ -1,0 +1,37 @@
+[package]
+name = "ethira"
+version = "0.1.0"
+edition = "2024"
+description = "Open-source Ethira client: OAuth login, local inventory cache, and sandboxed SQL"
+license = "Apache-2.0 OR MIT"
+readme = "README.md"
+repository = "https://github.com/ethira-dev/cli"
+homepage = "https://ethira.dev"
+keywords = ["ethira", "cli", "inventory", "oauth"]
+categories = ["command-line-utilities"]
+publish = false
+
+[dependencies]
+anyhow = "1.0.104"
+axum = "0.8.9"
+base64 = "0.22.1"
+chrono = { version = "0.4.45", features = ["serde"] }
+clap = { version = "4.6.2", features = ["derive", "env"] }
+clap_complete = "4.5.57"
+console = "0.16.4"
+dialoguer = "0.12.0"
+dirs = "6.0.0"
+keyring = { version = "3.6.3", features = ["apple-native", "linux-native", "windows-native"] }
+open = "5.4.0"
+rand = "0.10.2"
+reqwest = { version = "0.13.4", default-features = false, features = ["json", "rustls"] }
+rusqlite = { version = "0.40.1", features = ["bundled", "hooks"] }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.150"
+sha2 = "0.11.0"
+thiserror = "2.0.19"
+tokio = { version = "1.53.0", features = ["macros", "net", "rt-multi-thread", "sync", "time"] }
+url = "2.5.8"
+
+[dev-dependencies]
+tempfile = "3.27.0"

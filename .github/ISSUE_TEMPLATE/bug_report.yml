@@ -1,0 +1,38 @@
+name: Bug report
+description: Report a functional bug in the Ethira CLI
+labels: ["bug"]
+body:
+  - type: checkboxes
+    id: redaction
+    attributes:
+      label: Redaction
+      description: Public issues must not contain secrets or inventory dumps.
+      options:
+        - label: I have redacted tokens and have not pasted `~/.ethira` contents or full inventory `raw_json`.
+          required: true
+  - type: markdown
+    attributes:
+      value: |
+        For **security** issues (auth, tokens, credential/cache handling), do **not** use this form.
+        Use [SECURITY.md](../SECURITY.md) / GitHub Private Vulnerability Reporting instead.
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What went wrong?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Minimal steps. Omit secrets and inventory payloads.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: CLI version
+      description: Output of `ethira --version` or commit SHA
+    validations:
+      required: false

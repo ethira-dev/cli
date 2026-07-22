@@ -1,0 +1,20 @@
+/target/
+**/*.rs.bk
+.DS_Store
+
+# Secrets and local Ethira state (never commit)
+.env
+.env.*
+.ethira/
+credentials.json
+*.sqlite
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# IDE / local
+.idea/
+.vscode/
+*.swp
+*.swo

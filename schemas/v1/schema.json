@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethira.dev/schemas/cli/v1/schema.json",
+  "title": "ethira schema --json",
+  "type": "object",
+  "required": ["schemaVersion", "localOnly", "tables"],
+  "additionalProperties": true,
+  "properties": {
+    "schemaVersion": { "const": "1" },
+    "localOnly": { "const": true },
+    "cachePresent": { "type": "boolean" },
+    "sql": { "type": "object" },
+    "examples": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "tables": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "kind", "columns"],
+        "properties": {
+          "name": { "type": "string" },
+          "kind": { "type": "string", "enum": ["asset", "edge"] },
+          "rowCount": { "type": "integer" },
+          "columns": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["name", "description"],
+              "properties": {
+                "name": { "type": "string" },
+                "description": { "type": "string" }
+              }
+            }
+          },
+          "routingFields": {
+            "oneOf": [
+              { "type": "null" },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["path", "description"],
+                  "properties": {
+                    "path": { "type": "string" },
+                    "description": { "type": "string" }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

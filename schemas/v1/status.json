@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethira.dev/schemas/cli/v1/status.json",
+  "title": "ethira status --json",
+  "type": "object",
+  "required": ["schemaVersion", "localOnly", "loggedIn", "cache", "agentHints"],
+  "additionalProperties": true,
+  "properties": {
+    "schemaVersion": { "const": "1" },
+    "localOnly": { "const": true },
+    "loggedIn": { "type": "boolean" },
+    "cache": { "$ref": "#/$defs/cache" },
+    "agentHints": { "type": "object" }
+  },
+  "$defs": {
+    "cache": {
+      "type": "object",
+      "required": ["present"],
+      "properties": {
+        "present": { "type": "boolean" },
+        "path": { "type": ["string", "null"] },
+        "lastSyncedAt": { "type": ["string", "null"] },
+        "workspaceId": { "type": ["string", "null"] },
+        "workspaceName": { "type": ["string", "null"] },
+        "mtime": { "type": ["string", "null"] }
+      },
+      "additionalProperties": true
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ethira.dev/schemas/cli/v1/whoami.json",
+  "title": "ethira whoami --json",
+  "type": "object",
+  "required": ["schemaVersion", "tokenWorkspace", "mismatch", "apiUrl"],
+  "additionalProperties": true,
+  "properties": {
+    "schemaVersion": { "const": "1" },
+    "tokenWorkspace": {
+      "type": "object",
+      "required": ["id", "name"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" }
+      }
+    },
+    "shellWorkspaceId": { "type": ["string", "null"] },
+    "shellWorkspaceName": { "type": ["string", "null"] },
+    "mismatch": { "type": "boolean" },
+    "scope": { "type": ["string", "null"] },
+    "apiUrl": { "type": "string" },
+    "cache": { "type": "object" }
+  }
+}
