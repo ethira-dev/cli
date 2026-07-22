@@ -4,14 +4,14 @@ description: Shell out to ethira with --json. No Ethira MCP for inventory.
 order: 7
 ---
 
-**Agent model:** sync downloads inventory once; agents query **only via this CLI** (`ethira … --json`). There is no Ethira MCP surface for inventory, and query commands do not call the Ethira API (except explicit `ethira sql --sync`).
+Sync once, then query only via this CLI (`ethira … --json`). There is no Ethira MCP for inventory. Query commands do not call the API except `ethira sql --sync`.
 
 ## Contract
 
 | Concern | Behavior |
 | --- | --- |
 | Runtime | Shell out to `ethira`; parse `--json` stdout |
-| Not supported | Ethira MCP for inventory; guessing inventory facts |
+| Not supported | Ethira MCP for inventory |
 | Local-only | `status`, `schema`, `tables`, `routing`, `sql` (without `--sync`) |
 | Network | `login`, `whoami`, `sync`, `sql --sync`, `workspace` |
 | Schemas | [`schemas/v1/`](https://github.com/ethira-dev/cli/tree/main/schemas/v1), field `schemaVersion: "1"` |

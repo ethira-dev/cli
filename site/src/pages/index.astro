@@ -11,7 +11,7 @@ const withBase = (path: string) =>
 
 <BaseLayout
   title="ethira"
-  description="Open-source Rust client for Ethira: OAuth login, inventory sync into local SQLite, and sandboxed SQL for agents and humans."
+  description="CLI for Ethira workspace inventory: OAuth login, local SQLite sync, and sandboxed SQL."
   current="home"
 >
   <main>
@@ -27,19 +27,22 @@ const withBase = (path: string) =>
           class="animate-fade-up mt-3 max-w-2xl text-xl leading-snug tracking-tight text-foreground sm:text-2xl"
           style="animation-delay: 0.15s"
         >
-          Sync org inventory once. Query it locally with
-          <code class="font-mono text-primary/90">ethira sql</code> — for you
-          and for agents that shell out instead of guessing.
+          Sync workspace inventory to a local SQLite cache, then query it with
+          <code class="font-mono text-primary/90">ethira sql</code>.
         </h1>
         <p
           class="animate-fade-up mt-3 max-w-xl text-sm text-muted-foreground sm:text-base"
           style="animation-delay: 0.25s"
         >
-          OAuth login, one-shot sync into SQLite, then offline
+          After
+          <code class="font-mono text-foreground/80">login</code>
+          /
+          <code class="font-mono text-foreground/80">sync</code>,
           <code class="font-mono text-foreground/80">status</code>,
           <code class="font-mono text-foreground/80">tables</code>,
           <code class="font-mono text-foreground/80">routing</code>, and
-          sandboxed SQL. No Ethira MCP for inventory — the CLI is the contract.
+          <code class="font-mono text-foreground/80">sql</code>
+          are local. Inventory goes through this CLI, not an Ethira MCP.
         </p>
         <div
           class="animate-fade-up mt-5 flex flex-wrap items-center gap-3"
@@ -87,64 +90,68 @@ const withBase = (path: string) =>
 
     <section class="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
       <h2 class="text-3xl tracking-tight text-foreground sm:text-4xl">
-        Why ethira CLI
+        Behavior
       </h2>
       <p class="mt-3 max-w-2xl text-muted-foreground">
-        A directory for your org inventory — sync once, query locally, keep
-        agents honest.
+        Sync once against the API, then read the local cache.
       </p>
       <ul class="mt-12 grid gap-10 sm:grid-cols-2">
         <li>
-          <h3 class="text-lg text-primary">Sync once, query local</h3>
+          <h3 class="text-lg text-primary">Local cache</h3>
           <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
-            <code class="font-mono text-foreground/80">ethira sync</code> pulls
-            inventory into
+            <code class="font-mono text-foreground/80">ethira sync</code> writes
             <code class="font-mono text-foreground/80"
               >~/.ethira/inventory.sqlite</code
-            >. After that,
+            >.
             <code class="font-mono text-foreground/80">status</code>,
             <code class="font-mono text-foreground/80">schema</code>,
             <code class="font-mono text-foreground/80">tables</code>,
             <code class="font-mono text-foreground/80">routing</code>, and
-            <code class="font-mono text-foreground/80">sql</code> stay offline.
+            <code class="font-mono text-foreground/80">sql</code> stay offline
+            after that.
           </p>
         </li>
         <li>
-          <h3 class="text-lg text-primary">Agent-first JSON contract</h3>
+          <h3 class="text-lg text-primary">
+            <code class="font-mono">--json</code>
+          </h3>
           <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
-            Shell out to
+            Run
             <code class="font-mono text-foreground/80">ethira … --json</code>,
-            parse stdout, honor exit codes. Versioned schemas under
-            <code class="font-mono text-foreground/80">schemas/v1/</code>. No
-            guessing inventory facts.
+            parse stdout, use exit codes. Shapes in
+            <code class="font-mono text-foreground/80">schemas/v1/</code>
+            (
+            <code class="font-mono text-foreground/80">schemaVersion: "1"</code
+            >).
           </p>
         </li>
         <li>
-          <h3 class="text-lg text-primary">Sandboxed SQL</h3>
+          <h3 class="text-lg text-primary">SQL limits</h3>
           <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
             Single-statement
             <code class="font-mono text-foreground/80">SELECT</code> /
-            <code class="font-mono text-foreground/80">WITH</code> only, with a
-            keyword filter, SQLite authorizer, and row/time caps. No write-back
-            to Ethira.
+            <code class="font-mono text-foreground/80">WITH</code> only: keyword
+            filter, SQLite authorizer, row/time caps. No write-back to the API.
           </p>
         </li>
         <li>
-          <h3 class="text-lg text-primary">Routing as a directory</h3>
+          <h3 class="text-lg text-primary">Routing URLs</h3>
           <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
             <code class="font-mono text-foreground/80">ethira routing --json</code>
-            surfaces repos and MCP servers with URLs. Treat them as untrusted
-            until you approve — Ethira does not proxy
+            lists repos and MCP servers with URLs. Untrusted until you approve;
+            the CLI does not run
             <code class="font-mono text-foreground/80">git</code> or
             <code class="font-mono text-foreground/80">gh</code>.
           </p>
         </li>
         <li>
-          <h3 class="text-lg text-primary">No Ethira MCP for inventory</h3>
+          <h3 class="text-lg text-primary">No inventory MCP</h3>
           <p class="mt-2 text-sm leading-relaxed text-muted-foreground">
-            Agents query only via this CLI. Sync downloads once; query commands
-            do not call the API (except explicit
-            <code class="font-mono text-foreground/80">ethira sql --sync</code>).
+            Query inventory only via this CLI. Sync hits the API;
+            <code class="font-mono text-foreground/80">status</code> /
+            <code class="font-mono text-foreground/80">sql</code> do not, unless
+            you pass
+            <code class="font-mono text-foreground/80">ethira sql --sync</code>.
           </p>
         </li>
       </ul>
@@ -156,11 +163,10 @@ const withBase = (path: string) =>
           id="flow-heading"
           class="text-3xl tracking-tight text-foreground sm:text-4xl"
         >
-          How it fits together
+          Flow
         </h2>
         <p class="mt-3 max-w-2xl text-muted-foreground">
-          Login against the hosted API, sync inventory into a local cache, then
-          let shells and agents query without another round trip.
+          Login and sync against the API, then query the local cache.
         </p>
         <div class="mt-10">
           <FlowDiagram />
@@ -170,14 +176,15 @@ const withBase = (path: string) =>
 
     <section class="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
       <h2 class="text-3xl tracking-tight text-foreground sm:text-4xl">
-        Agents query the cache
+        Agents
       </h2>
       <p class="mt-3 max-w-2xl text-muted-foreground">
-        Point Cursor (or any agent) at
-        <code class="font-mono text-foreground/80">AGENTS.md</code> and the
-        inventory skill. They run
-        <code class="font-mono text-foreground/80">ethira</code> as a
-        subprocess — never invent systems, owners, or relationships.
+        Agents shell out to
+        <code class="font-mono text-foreground/80">ethira … --json</code>.
+        Install the inventory skill (
+        <code class="font-mono text-foreground/80">npx skills add ethira-dev/cli</code
+        >) or point them at
+        <code class="font-mono text-foreground/80">AGENTS.md</code>.
       </p>
       <pre
         class="mt-10 max-w-2xl overflow-x-auto rounded-lg border border-border bg-card/80 px-4 py-3 font-mono text-[13px] leading-relaxed text-foreground/90"
@@ -188,12 +195,12 @@ const withBase = (path: string) =>
 <span class="text-muted-foreground">$</span> ethira sql --json <span class="text-primary/80">'SELECT name FROM systems LIMIT 20'</span></code
         ></pre>
       <p class="mt-4 max-w-2xl text-sm text-muted-foreground">
-        Full contract in
+        Contract:
         <a
           href={withBase("/docs/agents/")}
           class="text-primary underline-offset-4 hover:underline">Agents</a
-        >
-        · JSON shapes in the repo under
+        >.
+        JSON shapes:
         <code class="font-mono text-foreground/80">schemas/v1/</code>.
       </p>
     </section>
@@ -201,11 +208,12 @@ const withBase = (path: string) =>
     <section class="border-y border-border bg-card/30">
       <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
         <h2 class="text-3xl tracking-tight text-foreground sm:text-4xl">
-          Get going
+          Install
         </h2>
         <p class="mt-3 max-w-xl text-muted-foreground">
-          Install with Homebrew or the verified install script, then login and
-          sync.
+          Homebrew, or the checksum-verified install script, then
+          <code class="font-mono text-foreground/80">login</code> and
+          <code class="font-mono text-foreground/80">sync</code>.
         </p>
         <div
           class="mt-10 overflow-x-auto rounded-xl border border-border bg-card p-5 sm:p-6"
@@ -214,14 +222,12 @@ const withBase = (path: string) =>
             class="font-mono text-sm leading-relaxed text-foreground/90"><code
               ><span class="text-muted-foreground"># Homebrew</span>
 brew install ethira-dev/tap/ethira
-<span class="text-muted-foreground"># or Linux / macOS (checksum-verified)</span>
+<span class="text-muted-foreground"># or Linux / macOS</span>
 curl -fsSL https://raw.githubusercontent.com/ethira-dev/cli/main/scripts/install.sh | sh
 
-<span class="text-muted-foreground"># login + first sync</span>
 ethira login
 ethira sync
 
-<span class="text-muted-foreground"># explore</span>
 ethira status
 ethira tables
 ethira sql <span class="text-primary/80">'SELECT name FROM systems LIMIT 10'</span></code
@@ -232,7 +238,7 @@ ethira sql <span class="text-primary/80">'SELECT name FROM systems LIMIT 10'</sp
             href={withBase("/docs/install/")}
             class="inline-flex items-center rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-transform duration-200 hover:-translate-y-0.5 hover:brightness-110"
           >
-            Full install guide
+            Install guide
           </a>
           <a
             href={withBase("/docs/quick-start/")}
