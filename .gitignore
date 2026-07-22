@@ -18,3 +18,8 @@ credentials.json
 .vscode/
 *.swp
 *.swo
+
+# Marketing / docs site
+site/node_modules/
+site/dist/
+site/.astro/

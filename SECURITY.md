@@ -32,7 +32,7 @@ We aim to acknowledge reports within **3 business days**.
 | Malicious API host (`--api-url`) | Non-default remote hosts require `--allow-untrusted-api-host`. Tokens are sent to whatever host you authorize. |
 | Hostile or compromised workspace inventory | Clone URLs and MCP URLs from sync are **untrusted data**. Agents must get user approval before cloning or connecting. |
 | Local `ethira sql` | Trusted local user/agent feature. It is not a multi-tenant sandbox against someone who can already run the binary. |
-| Supply chain | Dependencies come from crates.io; binary release trust is documented under signed/attested releases when those exist. |
+| Supply chain | Dependencies come from crates.io. Release archives ship with `SHA256SUMS`, a CycloneDX SBOM, and GitHub artifact attestations — see [docs/releasing.md](docs/releasing.md). |
 
 ### Local data sensitivity
 
@@ -60,6 +60,6 @@ Before or when making this repository public:
 1. Enable **secret scanning** and **push protection**
 2. Enable **private vulnerability reporting**
 3. Confirm GitHub Actions has no org secrets required by public forks
-4. Do not upload release binaries until the Gate C release pipeline
-   (checksums, attestations/SBOM, platform signing) is in place — see
-   [docs/releasing.md](docs/releasing.md)
+4. Keep the Gate C release pipeline intact (checksums, attestations/SBOM on
+   every `v*` tag). macOS notarization and Windows Authenticode remain
+   deferred — see [docs/releasing.md](docs/releasing.md)

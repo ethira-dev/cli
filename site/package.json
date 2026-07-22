@@ -1,0 +1,24 @@
+{
+  "name": "ethira-cli-site",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@fontsource/ibm-plex-mono": "^5.2.7",
+    "@fontsource/space-grotesk": "^5.2.10",
+    "@tailwindcss/vite": "^4",
+    "astro": "^5",
+    "tailwindcss": "^4"
+  },
+  "devDependencies": {
+    "typescript": "~5.9"
+  },
+  "overrides": {
+    "vite": "6.4.3"
+  }
+}

@@ -9,6 +9,8 @@ description: >-
 
 # Ethira inventory (CLI only)
 
+Requires the `ethira` binary on `PATH` ([install](https://ethira-dev.github.io/cli/docs/install/)).
+
 ## Rules
 
 1. Invoke **`ethira` as a subprocess** (shell / Bash tool). Parse `--json` stdout.
@@ -70,4 +72,4 @@ Routing data (clone URLs, MCP URLs, provider fields) comes from the synced works
 
 ## Schemas
 
-JSON contracts live in `schemas/v1/` (`schemaVersion: "1"`). Prefer additive fields when interpreting newer CLI output.
+JSON contracts: [schemas/v1](https://github.com/ethira-dev/cli/tree/main/schemas/v1) (`schemaVersion: "1"`). Prefer additive fields when interpreting newer CLI output.

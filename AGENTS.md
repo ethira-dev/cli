@@ -23,7 +23,8 @@ If the cache is missing (exit code `3`), tell the user to run `ethira sync` (req
 - Prefer `--json` and parse stdout. On failure with `--json`, read stderr JSON.
 - Exit codes: `0` ok · `1` generic · `2` unauthorized · `3` cache missing · `4` SQL error.
 - JSON shapes: [`schemas/v1/`](schemas/v1/README.md) (`schemaVersion: "1"`).
-- Playbook: [`.cursor/skills/ethira-inventory/SKILL.md`](.cursor/skills/ethira-inventory/SKILL.md)
+- Playbook: [`skills/ethira-inventory/SKILL.md`](skills/ethira-inventory/SKILL.md)
+- Install elsewhere: `npx skills add ethira-dev/cli` (add `-g` for global)
 
 ## After Ethira answers
 

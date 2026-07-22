@@ -1,0 +1,182 @@
+---
+const stages = [
+  {
+    idx: "01",
+    label: "API",
+    title: "Ethira API",
+    detail: "OAuth + inventory sync",
+    note: "api.ethira.dev",
+  },
+  {
+    idx: "02",
+    label: "CLI",
+    title: "ethira sync",
+    detail: "One-shot download",
+    note: "network once",
+  },
+  {
+    idx: "03",
+    label: "Cache",
+    title: "SQLite",
+    detail: "~/.ethira/inventory.sqlite",
+    note: "local-only reads",
+  },
+  {
+    idx: "04",
+    label: "Query",
+    title: "Shell & agents",
+    detail: "ethira sql --json",
+    note: "no Ethira MCP",
+  },
+]
+---
+
+<figure class="flow" aria-labelledby="flow-heading">
+  <div class="flow__frame">
+    <header class="flow__meta">
+      <span class="flow__meta-key">flow</span>
+      <span class="flow__meta-val">login → sync → sql</span>
+      <span class="flow__meta-key">mode</span>
+      <span class="flow__meta-val">local after sync</span>
+    </header>
+
+    <ol class="flow__board">
+      {
+        stages.map((s, i) => (
+          <>
+            <li class="flow__node">
+              <p class="flow__col-label">
+                <span class="flow__idx">{s.idx}</span> {s.label}
+              </p>
+              <div class="flow__card">
+                <p class="flow__title">{s.title}</p>
+                <p class="flow__detail">{s.detail}</p>
+                <p class="flow__note">{s.note}</p>
+              </div>
+            </li>
+            {i < stages.length - 1 && (
+              <li class="flow__arrow" aria-hidden="true">
+                →
+              </li>
+            )}
+          </>
+        ))
+      }
+    </ol>
+  </div>
+</figure>
+
+<style>
+  .flow {
+    margin: 0;
+  }
+
+  .flow__frame {
+    overflow: hidden;
+    border-radius: 0.75rem;
+    border: 1px solid var(--border);
+    background: var(--card);
+  }
+
+  .flow__meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--border);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+  }
+
+  .flow__meta-key {
+    color: var(--muted-foreground);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .flow__meta-val {
+    color: var(--foreground);
+  }
+
+  .flow__board {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 1.25rem 1rem;
+    list-style: none;
+  }
+
+  @media (min-width: 768px) {
+    .flow__board {
+      flex-direction: row;
+      align-items: stretch;
+      gap: 0.5rem;
+      padding: 1.5rem 1.25rem;
+    }
+  }
+
+  .flow__node {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .flow__col-label {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted-foreground);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .flow__idx {
+    color: var(--primary);
+    margin-right: 0.35rem;
+  }
+
+  .flow__card {
+    height: 100%;
+    border-radius: 0.65rem;
+    border: 1px solid var(--border);
+    background: color-mix(in oklch, var(--background) 70%, transparent);
+    padding: 0.85rem 0.95rem;
+  }
+
+  .flow__title {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--foreground);
+  }
+
+  .flow__detail {
+    margin: 0.35rem 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--primary);
+  }
+
+  .flow__note {
+    margin: 0.4rem 0 0;
+    font-size: 0.75rem;
+    color: var(--muted-foreground);
+  }
+
+  .flow__arrow {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 0.15rem 0;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--muted-foreground);
+  }
+
+  @media (min-width: 768px) {
+    .flow__arrow {
+      display: flex;
+      flex: 0 0 auto;
+    }
+  }
+</style>

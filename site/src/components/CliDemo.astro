@@ -1,0 +1,46 @@
+---
+interface Props {
+  id?: string
+}
+
+const { id = "cli-demo" } = Astro.props
+---
+
+<div class="mac-window" id={id}>
+  <div class="mac-window__titlebar" aria-hidden="true">
+    <div class="mac-window__traffic">
+      <span class="mac-window__dot mac-window__dot--close"></span>
+      <span class="mac-window__dot mac-window__dot--min"></span>
+      <span class="mac-window__dot mac-window__dot--max"></span>
+    </div>
+    <span class="mac-window__title">ethira — terminal</span>
+    <span class="mac-window__titlebar-spacer"></span>
+  </div>
+  <pre
+    class="cli-demo__body overflow-x-auto px-4 py-4 font-mono text-[12px] leading-relaxed text-foreground/90 sm:text-[13px]"
+  ><code
+      ><span class="text-muted-foreground">$</span> ethira login
+<span class="text-primary/90">✓</span> Authenticated · workspace <span class="text-primary">acme</span>
+
+<span class="text-muted-foreground">$</span> ethira sync
+<span class="text-primary/90">✓</span> Synced 142 systems · 89 repos · cache <span class="text-muted-foreground">~/.ethira/inventory.sqlite</span>
+
+<span class="text-muted-foreground">$</span> ethira sql --json <span class="text-primary/80">'SELECT name FROM systems LIMIT 3'</span>
+<span class="text-muted-foreground">{</span>
+  <span class="text-foreground/70">"schemaVersion"</span>: <span class="text-primary/90">"1"</span>,
+  <span class="text-foreground/70">"rows"</span>: [
+    <span class="text-muted-foreground">{</span> <span class="text-foreground/70">"name"</span>: <span class="text-primary/90">"billing-api"</span> <span class="text-muted-foreground">}</span>,
+    <span class="text-muted-foreground">{</span> <span class="text-foreground/70">"name"</span>: <span class="text-primary/90">"checkout"</span> <span class="text-muted-foreground">}</span>,
+    <span class="text-muted-foreground">{</span> <span class="text-foreground/70">"name"</span>: <span class="text-primary/90">"identity"</span> <span class="text-muted-foreground">}</span>
+  ]
+<span class="text-muted-foreground">}</span></code
+  ></pre>
+</div>
+
+<style>
+  .cli-demo__body {
+    margin: 0;
+    min-height: 14rem;
+    background: oklch(0.145 0 0);
+  }
+</style>
