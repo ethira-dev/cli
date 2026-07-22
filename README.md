@@ -2,6 +2,8 @@
 
 Open-source Rust client for Ethira: OAuth login, inventory sync into a local SQLite cache, and sandboxed SQL queries.
 
+**Docs:** [ethira-dev.github.io/cli](https://ethira-dev.github.io/cli/)
+
 **Positioning:** this repository is an open-source **client**. The Ethira API and inventory service are a separate hosted product. The default API host is `https://api.ethira.dev`. Forks and self-hosted setups may point at another HTTPS API with an explicit trust override (see Configuration).
 
 **Agent model:** sync downloads inventory once; agents query **only via this CLI** (`ethira … --json`). There is no Ethira MCP surface for inventory, and query commands do not call the Ethira API (except explicit `ethira sql --sync`).
@@ -12,7 +14,15 @@ API docs: [https://api.ethira.dev/api](https://api.ethira.dev/api)
 
 Quick tour in the binary: `ethira` · `ethira examples` · `ethira --help`
 
-Agent discovery: [AGENTS.md](AGENTS.md) · [`.cursor/skills/ethira-inventory/SKILL.md`](.cursor/skills/ethira-inventory/SKILL.md) · JSON contracts in [`schemas/v1/`](schemas/v1/README.md)
+Agent discovery: [AGENTS.md](AGENTS.md) · [`skills/ethira-inventory/SKILL.md`](skills/ethira-inventory/SKILL.md) · JSON contracts in [`schemas/v1/`](schemas/v1/README.md)
+
+Install the agent skill into Cursor / Claude Code / other agents:
+
+```bash
+npx skills add ethira-dev/cli
+# optional: global for all projects
+npx skills add ethira-dev/cli -g
+```
 
 ## Requirements
 
@@ -21,9 +31,21 @@ Agent discovery: [AGENTS.md](AGENTS.md) · [`.cursor/skills/ethira-inventory/SKI
 - Your Ethira workspace must allow CLI OAuth login with loopback redirect URIs (`http://127.0.0.1`)
 - API inventory sync routes: `GET /v1/cli/inventory/*`
 
-## Build / install
+## Install
 
-Source-first (supported today):
+**Homebrew**
+
+```bash
+brew install ethira-dev/tap/ethira
+```
+
+**Linux / macOS (verified script)** — checks `SHA256SUMS` before install:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/ethira-dev/cli/main/scripts/install.sh | sh
+```
+
+**From source**
 
 ```bash
 cargo build --release
@@ -31,9 +53,9 @@ cargo build --release
 cargo install --path .
 ```
 
-Binary: `target/release/ethira`
+Binary: `target/release/ethira` (or `~/.cargo/bin/ethira` / `~/.local/bin/ethira`).
 
-Downloadable GitHub Release binaries are documented only after the signed/attested release pipeline in [docs/releasing.md](docs/releasing.md) is live.
+Prebuilt archives, checksums, SBOM, and attestations: [GitHub Releases](https://github.com/ethira-dev/cli/releases). See [docs/releasing.md](docs/releasing.md).
 
 ## Getting started
 
